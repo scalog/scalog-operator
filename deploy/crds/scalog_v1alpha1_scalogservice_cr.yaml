@@ -4,4 +4,7 @@ metadata:
   name: example-scalogservice
 spec:
   # Add fields here
-  size: 3
+  numShards: 2
+  numDataReplica: 2
+  numMetadataReplica: 3
+  millisecondBatchInterval: 1000
