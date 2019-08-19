@@ -3,7 +3,9 @@ module github.com/scalog-operator
 require (
 	github.com/NYTimes/gziphandler v1.0.1 // indirect
 	github.com/operator-framework/operator-sdk v0.10.1-0.20190819165121-e09b9b06a705
+	github.com/scalog/scalog v0.0.0-20190731140123-fbc07824d317
 	github.com/spf13/pflag v1.0.3
+	google.golang.org/grpc v1.19.1
 	k8s.io/api v0.0.0-20190612125737-db0771252981
 	k8s.io/apimachinery v0.0.0-20190612125636-6a5db36e93ad
 	k8s.io/client-go v11.0.0+incompatible

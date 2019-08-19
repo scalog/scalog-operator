@@ -16,7 +16,7 @@ spec:
       containers:
         - name: scalog-operator
           # Replace this with the built image name
-          image: REPLACE_IMAGE
+          image: chengwanghku/scalog-operator:latest
           command:
           - scalog-operator
           imagePullPolicy: Always
