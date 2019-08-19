@@ -3,6 +3,7 @@ kind: Role
 metadata:
   creationTimestamp: null
   name: scalog-operator
+  namespace: scalog
 rules:
 - apiGroups:
   - ""
@@ -14,6 +15,7 @@ rules:
   - events
   - configmaps
   - secrets
+  - serviceaccounts
   verbs:
   - '*'
 - apiGroups:
@@ -32,26 +34,6 @@ rules:
   verbs:
   - get
   - create
-- apiGroups:
-  - apps
-  resourceNames:
-  - scalog-operator
-  resources:
-  - deployments/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  verbs:
-  - get
-- apiGroups:
-  - apps
-  resources:
-  - replicasets
-  verbs:
-  - get
 - apiGroups:
   - scalog.io
   resources:
