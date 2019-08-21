@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"time"
 
 	scalogv1alpha1 "github.com/scalog-operator/pkg/apis/scalog/v1alpha1"
 	"github.com/scalog/scalog/logger"
@@ -275,6 +276,7 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 	if err == nil {
 		reqLogger.Info(fmt.Sprintf("Check all statefulsets to ensure that an expected number of pods is up and running."))
 		if len(existingDataReplicas.Items) != (instance.Spec.NumShards * instance.Spec.NumDataReplica) {
+			time.Sleep(2000 * time.Millisecond)
 			return reconcile.Result{Requeue: true}, nil
 		}
 		
