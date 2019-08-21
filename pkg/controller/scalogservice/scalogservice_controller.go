@@ -357,6 +357,21 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 		return reconcile.Result{}, err
 	}
 
+	clientDeploy := &appsv1.Deployment{}
+	if err := r.client.Get(context.Background(), types.NamespacedName{Namespace: "scalog", Name: "scalog-client-deployment"}, clientDeploy); err != nil {
+		if errors.IsNotFound(err) {
+			reqLogger.Info("Client deployment not found. Creating...")
+			client := newClientDeployment()
+			if deployErr := r.client.Create(context.Background(), client); clientErr != nil {
+				reqLogger.Info("Something went wrong while creating the client deployment")
+				return reconcile.Result{}, clientErr
+			}
+			return reconcile.Result{Requeue: true}, nil
+		}
+		reqLogger.Info("Something went wrong while fetching the client deployment")
+		return reconcile.Result{}, err
+	}
+
 	// Update Status
 	potentialUpdate := instance.Status.DeepCopy()
 	potentialUpdate.Phase = "Running"
