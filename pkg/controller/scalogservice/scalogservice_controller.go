@@ -274,7 +274,14 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 	externalDataReplicaSelector := client.ListOptions{}
 	externalDataReplicaSelector.SetLabelSelector("role=scalog-data-replica")
 	externalDataReplicaSelector.InNamespace("scalog")
-	err = r.client.List(context.Background(), &externalDataReplicaSelector, &existingDataReplicas)
+	for {
+		err = r.client.List(context.Background(), &externalDataReplicaSelector, &existingDataReplicas)
+		if len(existingDataReplicas.Items) == (instance.spec.NumShards * instance.spec.NumDataReplica) {
+			break
+		}
+		time.Sleep(2000 * time.Millisecond)
+	}
+	
 	if err == nil {
 		// Ensure that each data replica maintains its own service
 		externalDataService := &corev1.ServiceList{}
