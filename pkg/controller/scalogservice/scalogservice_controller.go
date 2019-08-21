@@ -362,7 +362,7 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 		if errors.IsNotFound(err) {
 			reqLogger.Info("Client deployment not found. Creating...")
 			client := newClientDeployment()
-			if deployErr := r.client.Create(context.Background(), client); clientErr != nil {
+			if clientErr := r.client.Create(context.Background(), client); clientErr != nil {
 				reqLogger.Info("Something went wrong while creating the client deployment")
 				return reconcile.Result{}, clientErr
 			}
