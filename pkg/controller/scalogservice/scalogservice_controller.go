@@ -267,6 +267,8 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 
 	}
 
+	// TODO: Check all statefulsets to ensure that an expected number of pods is up and running
+
 	// Ensure that each data replica maintains its own service
 	existingDataReplicas := corev1.PodList{}
 	externalDataReplicaSelector := client.ListOptions{}
@@ -274,12 +276,6 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 	externalDataReplicaSelector.InNamespace("scalog")
 	err = r.client.List(context.Background(), &externalDataReplicaSelector, &existingDataReplicas)
 	if err == nil {
-		reqLogger.Info(fmt.Sprintf("Check all statefulsets to ensure that an expected number of pods is up and running."))
-		if len(existingDataReplicas.Items) != (instance.Spec.NumShards * instance.Spec.NumDataReplica) {
-			time.Sleep(2000 * time.Millisecond)
-			return reconcile.Result{Requeue: true}, nil
-		}
-		
 		// Ensure that each data replica maintains its own service
 		externalDataService := &corev1.ServiceList{}
 		externalDataServiceSelector := client.ListOptions{}
