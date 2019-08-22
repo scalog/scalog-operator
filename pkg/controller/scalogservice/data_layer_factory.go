@@ -119,16 +119,16 @@ func newDataStatefulSet(shardID string, numReplicas int, batchInterval int) *app
 				Spec: corev1.PodSpec{
 					TerminationGracePeriodSeconds: createInt64(int64(10)),
 					ServiceAccountName:            "scalog-service-account",
-					Volumes: []corev1.Volume{
-						corev1.Volume{
-							Name: "scalog-data-storage",
-							VolumeSource: corev1.VolumeSource{
-								PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{
-									ClaimName: "scalog-stable-storage-claim",
-								},
-							},
-						},
-					},
+					// Volumes: []corev1.Volume{
+					//	corev1.Volume{
+					//		Name: "scalog-data-storage",
+					//		VolumeSource: corev1.VolumeSource{
+					//			PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{
+					//				ClaimName: "scalog-stable-storage-claim",
+					//			},
+					//		},
+					//	},
+					// },
 					Containers: []corev1.Container{
 						corev1.Container{
 							Name:            "scalog-data-replica-" + shardID,
@@ -136,12 +136,12 @@ func newDataStatefulSet(shardID string, numReplicas int, batchInterval int) *app
 							Command:         []string{"./scalog"},
 							Args:            []string{"data"},
 							ImagePullPolicy: "Always",
-							VolumeMounts: []corev1.VolumeMount{
-								corev1.VolumeMount{
-									Name:      "scalog-data-storage",
-									MountPath: "/app/scalog-db",
-								},
-							},
+							// VolumeMounts: []corev1.VolumeMount{
+							//	corev1.VolumeMount{
+							//		Name:      "scalog-data-storage",
+							//		MountPath: "/app/scalog-db",
+							//	},
+							// },
 							Ports: []corev1.ContainerPort{
 								corev1.ContainerPort{ContainerPort: 21024},
 							},
