@@ -276,7 +276,7 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 	externalDataReplicaSelector.InNamespace("scalog")
 	for {
 		err = r.client.List(context.Background(), &externalDataReplicaSelector, &existingDataReplicas)
-		if len(existingDataReplicas.Items) == (instance.spec.NumShards * instance.spec.NumDataReplica) {
+		if len(existingDataReplicas.Items) == (instance.Spec.NumShards * instance.Spec.NumDataReplica) {
 			break
 		}
 		time.Sleep(2000 * time.Millisecond)
