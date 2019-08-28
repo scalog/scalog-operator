@@ -332,6 +332,30 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 		return reconcile.Result{}, err
 	}
 
+
+	existingOrderReplicas := corev1.PodList{}
+	externalOrderReplicaSelector := client.ListOptions{}
+	externalOrderReplicaSelector.SetLabelSelector("app=scalog-order")
+	externalOrderReplicaSelector.InNamespace("scalog")
+
+	err = r.client.List(context.Background(), &externalOrderReplicaSelector, &existingOrderReplicas)
+	if err == nil {
+		orderLeaderPodUid := existingOrderReplicas.Items[0].UID
+		orderLeaderPodName := existingOrderReplicas.Items[0].Name
+		for _, pod := range existingOrderReplicas.Items {
+			if pod.UID < orderLeaderPodUid {
+				orderLeaderPodUid = pod.UID
+				orderLeaderPodName = pod.Name
+			}
+		}
+
+		if olesErr := r.client.Create(context.Background(), newOrderLeaderServerService(orderLeaderPodName)); olesErr != nil {
+			reqLogger.Info("Failed to create ordering leader external service")
+				return reconcile.Result{}, olesErr
+		}
+		return reconcile.Result{Requeue: true}, nil
+	}
+
 	// Ensure that a discovery service is running
 	discoveryService := corev1.Service{}
 	if err := r.client.Get(context.Background(), types.NamespacedName{Namespace: "scalog", Name: "scalog-discovery-service"}, &discoveryService); err != nil {
