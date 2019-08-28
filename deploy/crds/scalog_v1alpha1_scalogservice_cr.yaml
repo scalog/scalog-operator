@@ -7,5 +7,5 @@ spec:
   # Add fields here
   numShards: 2
   numDataReplica: 2
-  numMetadataReplica: 1
+  numMetadataReplica: 3
   millisecondBatchInterval: 1000
