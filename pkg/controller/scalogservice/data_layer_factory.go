@@ -148,7 +148,7 @@ func newDataStatefulSet(shardID string, numReplicas int, batchInterval int) *app
 							LivenessProbe: &corev1.Probe{
 								Handler: corev1.Handler{
 									Exec: &corev1.ExecAction{
-										Command: []string{"/bin/grpc_health_probe", "-addr=:21024", "-v"},
+										Command: []string{"/bin/grpc_health_probe", "-addr=:21024"},
 									},
 								},
 								PeriodSeconds:       20,

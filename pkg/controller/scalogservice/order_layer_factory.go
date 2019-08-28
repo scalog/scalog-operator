@@ -8,40 +8,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func constructExternalOrderLeaderServiceName() string {
-	return "scalog-exposed-leader-order-service"
-}
-
-/*
-	newOrderLeaderServerService launches a service that routes external traffic to the leader ordering
-	pod.
-*/
-func newOrderLeaderServerService(podName string) *corev1.Service {
-	return &corev1.Service{
-		TypeMeta: metav1.TypeMeta{},
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      constructExternalOrderLeaderServiceName(),
-			Namespace: "scalog",
-			Labels: map[string]string{
-				"role":                "scalog-exposed-order-leader-service",
-				"order-leader-service-target": podName,
-			},
-		},
-		Spec: corev1.ServiceSpec{
-			Type: "NodePort",
-			Ports: []corev1.ServicePort{
-				corev1.ServicePort{
-					Port:     21024,
-					Protocol: "TCP",
-				},
-			},
-			Selector: map[string]string{
-				"statefulset.kubernetes.io/pod-name": podName,
-			},
-		},
-	}
-}
-
 /*
 	newOrderDeployment creates a Kubernetes Deployment
 	used for managing the replication of the ordering
@@ -86,7 +52,7 @@ func newOrderDeployment(numOrderReplicas int, numDataReplicas int, batchInterval
 							LivenessProbe: &corev1.Probe{
 								Handler: corev1.Handler{
 									Exec: &corev1.ExecAction{
-										Command: []string{"/bin/grpc_health_probe", "-addr=:21024", "-v"},
+										Command: []string{"/bin/grpc_health_probe", "-addr=:21024"},
 									},
 								},
 								PeriodSeconds:       20,
