@@ -140,7 +140,8 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 	if err := r.client.Get(context.Background(), types.NamespacedName{Namespace: "scalog", Name: "scalog-order-service"}, &orderService); err != nil {
 		if errors.IsNotFound(err) {
 			reqLogger.Info("Order service not found. Creating...")
-			service := newOrderService()
+			// service := newOrderService()
+			service := newOrderHeadlessService()
 			if osErr := r.client.Create(context.Background(), service); osErr != nil {
 				reqLogger.Info("Something went wrong while creating the order service")
 				return reconcile.Result{}, osErr
@@ -153,11 +154,13 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 	}
 
 	// Create a order deployment if it doesn't exist
-	orderDeploy := &appsv1.Deployment{}
+	// orderDeploy := &appsv1.Deployment{}
+	orderDeploy := &appsv1.StatefulSet{}
 	if err := r.client.Get(context.Background(), types.NamespacedName{Namespace: "scalog", Name: "scalog-order-deployment"}, orderDeploy); err != nil {
 		if errors.IsNotFound(err) {
 			reqLogger.Info("Order deployment not found. Creating...")
-			deploy := newOrderDeployment(instance.Spec.NumMetadataReplica, instance.Spec.NumDataReplica, instance.Spec.MillisecondBatchInterval)
+			// deploy := newOrderDeployment(instance.Spec.NumMetadataReplica, instance.Spec.NumDataReplica, instance.Spec.MillisecondBatchInterval)
+			deploy := newOrderStatefulSet(instance.Spec.NumMetadataReplica, instance.Spec.NumDataReplica, instance.Spec.MillisecondBatchInterval)
 			if deployErr := r.client.Create(context.Background(), deploy); deployErr != nil {
 				reqLogger.Info("Something went wrong while creating the order deployment")
 				return reconcile.Result{}, deployErr
