@@ -214,7 +214,7 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 	if err == nil {
 		// Create a order leader service if it does not exist
 		orderLeaderService := corev1.Service{}
-		if err := r.client.Get(context.Background(), types.NamespacedName{Namespace: "scalog", Name: "role=scalog-exposed-order-leader-service"}, &orderLeaderService); err != nil {
+		if err := r.client.Get(context.Background(), types.NamespacedName{Namespace: "scalog", Name: "scalog-order-leader-service"}, &orderLeaderService); err != nil {
 			if errors.IsNotFound(err) {
 				reqLogger.Info("Order Leader service not found. Creating...")
 				service := newOrderLeaderService()
