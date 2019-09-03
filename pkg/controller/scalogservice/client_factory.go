@@ -37,7 +37,7 @@ func newClientDeployment() *appsv1.Deployment {
 							Name:            "scalog-client-node",
 							Image:           "chengwanghku/scalog:latest",
 							Command:         []string{"./scalog"},
-							Args:            []string{"client"},
+							Args:            []string{"k8sclient"},
 							ImagePullPolicy: "Always",
 							Ports: []corev1.ContainerPort{
 								corev1.ContainerPort{ContainerPort: 21024},

@@ -134,7 +134,7 @@ func newDataStatefulSet(shardID string, numReplicas int, batchInterval int) *app
 							Name:            "scalog-data-replica-" + shardID,
 							Image:           "chengwanghku/scalog:latest",
 							Command:         []string{"./scalog"},
-							Args:            []string{"data"},
+							Args:            []string{"k8sdata"},
 							ImagePullPolicy: "Always",
 							VolumeMounts: []corev1.VolumeMount{
 								corev1.VolumeMount{

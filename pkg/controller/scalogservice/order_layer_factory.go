@@ -43,7 +43,7 @@ func newOrderDeployment(numOrderReplicas int, numDataReplicas int, batchInterval
 							Name:            "scalog-order-node",
 							Image:           "chengwanghku/scalog:latest",
 							Command:         []string{"./scalog"},
-							Args:            []string{"order"},
+							Args:            []string{"k8sorder"},
 							ImagePullPolicy: "Always",
 							Ports: []corev1.ContainerPort{
 								corev1.ContainerPort{ContainerPort: 21024},

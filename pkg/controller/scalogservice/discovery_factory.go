@@ -69,7 +69,7 @@ func newDiscoveryDeployment(numReplicas int32) *appsv1.Deployment {
 							Name:            "scalog-discovery-node",
 							Image:           "chengwanghku/scalog:latest",
 							Command:         []string{"./scalog"},
-							Args:            []string{"discovery"},
+							Args:            []string{"k8sdiscovery"},
 							ImagePullPolicy: "Always",
 							Ports: []corev1.ContainerPort{
 								corev1.ContainerPort{ContainerPort: 21024},
@@ -77,7 +77,7 @@ func newDiscoveryDeployment(numReplicas int32) *appsv1.Deployment {
 							LivenessProbe: &corev1.Probe{
 								Handler: corev1.Handler{
 									Exec: &corev1.ExecAction{
-										Command: []string{"/bin/grpc_health_probe", "-addr=:21024", "-v"},
+										Command: []string{"/bin/grpc_health_probe", "-addr=:21024"},
 									},
 								},
 								PeriodSeconds:       20,
