@@ -276,8 +276,8 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 			var opts []grpc.DialOption
 			opts = append(opts, grpc.WithInsecure())
 
-			logger.Printf("Utilizing DNS to dial Ordering Layer at scalog-order-service.scalog:21024")
-			conn, err := grpc.Dial("dns:///scalog-order-service.scalog:21024", opts...)
+			logger.Printf("Utilizing DNS to dial Ordering Layer at scalog-order-leader-service.scalog:26733")
+			conn, err := grpc.Dial("dns:///scalog-order-leader-service.scalog:26733", opts...)
 			if err != nil {
 				panic(err)
 			}

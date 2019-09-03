@@ -39,7 +39,7 @@ func newDataService() *corev1.Service {
 		Spec: corev1.ServiceSpec{
 			Ports: []corev1.ServicePort{
 				corev1.ServicePort{
-					Port: 21024,
+					Port: 23282,
 				},
 			},
 			ClusterIP: "None", // Launch as a headless service
@@ -73,7 +73,7 @@ func newDataServerService(podName string) *corev1.Service {
 			Type: "NodePort",
 			Ports: []corev1.ServicePort{
 				corev1.ServicePort{
-					Port:     21024,
+					Port:     23282,
 					Protocol: "TCP",
 				},
 			},
@@ -143,12 +143,12 @@ func newDataStatefulSet(shardID string, numReplicas int, batchInterval int) *app
 								},
 							},
 							Ports: []corev1.ContainerPort{
-								corev1.ContainerPort{ContainerPort: 21024},
+								corev1.ContainerPort{ContainerPort: 23282},
 							},
 							LivenessProbe: &corev1.Probe{
 								Handler: corev1.Handler{
 									Exec: &corev1.ExecAction{
-										Command: []string{"/bin/grpc_health_probe", "-addr=:21024"},
+										Command: []string{"/bin/grpc_health_probe", "-addr=:23282"},
 									},
 								},
 								PeriodSeconds:       20,

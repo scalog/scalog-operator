@@ -25,7 +25,7 @@ func newDiscoveryService() *corev1.Service {
 			Type: "NodePort",
 			Ports: []corev1.ServicePort{
 				corev1.ServicePort{
-					Port:     21024,
+					Port:     23472,
 					Protocol: "TCP",
 				},
 			},
@@ -72,12 +72,12 @@ func newDiscoveryDeployment(numReplicas int32) *appsv1.Deployment {
 							Args:            []string{"k8sdiscovery"},
 							ImagePullPolicy: "Always",
 							Ports: []corev1.ContainerPort{
-								corev1.ContainerPort{ContainerPort: 21024},
+								corev1.ContainerPort{ContainerPort: 23472},
 							},
 							LivenessProbe: &corev1.Probe{
 								Handler: corev1.Handler{
 									Exec: &corev1.ExecAction{
-										Command: []string{"/bin/grpc_health_probe", "-addr=:21024"},
+										Command: []string{"/bin/grpc_health_probe", "-addr=:23472"},
 									},
 								},
 								PeriodSeconds:       20,

@@ -46,13 +46,13 @@ func newOrderDeployment(numOrderReplicas int, numDataReplicas int, batchInterval
 							Args:            []string{"k8sorder"},
 							ImagePullPolicy: "Always",
 							Ports: []corev1.ContainerPort{
-								corev1.ContainerPort{ContainerPort: 21024},
-								corev1.ContainerPort{ContainerPort: 10088},
+								corev1.ContainerPort{ContainerPort: 26733},
+								corev1.ContainerPort{ContainerPort: 27238},
 							},
 							LivenessProbe: &corev1.Probe{
 								Handler: corev1.Handler{
 									Exec: &corev1.ExecAction{
-										Command: []string{"/bin/grpc_health_probe", "-addr=:21024"},
+										Command: []string{"/bin/grpc_health_probe", "-addr=:26733"},
 									},
 								},
 								PeriodSeconds:       20,
@@ -146,13 +146,13 @@ func newOrderStatefulSet(numOrderReplicas int, numDataReplicas int, batchInterva
 							Args:            []string{"k8sorder"},
 							ImagePullPolicy: "Always",
 							Ports: []corev1.ContainerPort{
-								corev1.ContainerPort{ContainerPort: 21024},
-								corev1.ContainerPort{ContainerPort: 10088},
+								corev1.ContainerPort{ContainerPort: 26733},
+								corev1.ContainerPort{ContainerPort: 27238},
 							},
 							LivenessProbe: &corev1.Probe{
 								Handler: corev1.Handler{
 									Exec: &corev1.ExecAction{
-										Command: []string{"/bin/grpc_health_probe", "-addr=:21024"},
+										Command: []string{"/bin/grpc_health_probe", "-addr=:26733"},
 									},
 								},
 								PeriodSeconds:       20,
@@ -249,7 +249,7 @@ func newOrderService() *corev1.Service {
 			Ports: []corev1.ServicePort{
 				corev1.ServicePort{
 					Name:     "grpclb",
-					Port:     21024,
+					Port:     26733,
 					Protocol: "TCP",
 				},
 			},
@@ -273,7 +273,7 @@ func newOrderHeadlessService() *corev1.Service {
 		Spec: corev1.ServiceSpec{
 			Ports: []corev1.ServicePort{
 				corev1.ServicePort{
-					Port: 21024,
+					Port: 26733,
 				},
 			},
 			ClusterIP: "None", // Launch as a headless service
@@ -300,7 +300,7 @@ func newOrderLeaderService() *corev1.Service {
 			Type: "NodePort",
 			Ports: []corev1.ServicePort{
 				corev1.ServicePort{
-					Port:     21024,
+					Port:     26733,
 					Protocol: "TCP",
 				},
 			},
