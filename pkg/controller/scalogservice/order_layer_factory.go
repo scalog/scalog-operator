@@ -283,3 +283,30 @@ func newOrderHeadlessService() *corev1.Service {
 		},
 	}
 }
+
+func newOrderLeaderService() *corev1.Service {
+	podName := "scalog-order-deployment-0"
+	return &corev1.Service{
+		TypeMeta: metav1.TypeMeta{},
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "scalog-order-leader-service",
+			Namespace: "scalog",
+			Labels: map[string]string{
+				"role":                "scalog-exposed-order-leader-service",
+				"order-leader-service-target": podName,
+			},
+		},
+		Spec: corev1.ServiceSpec{
+			Type: "NodePort",
+			Ports: []corev1.ServicePort{
+				corev1.ServicePort{
+					Port:     21024,
+					Protocol: "TCP",
+				},
+			},
+			Selector: map[string]string{
+				"statefulset.kubernetes.io/pod-name": podName,
+			},
+		},
+	}
+}

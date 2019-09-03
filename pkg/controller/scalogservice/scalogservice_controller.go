@@ -199,6 +199,37 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 		return reconcile.Result{}, err
 	}
 
+	existingOrderReplicas := corev1.PodList{}
+	externalOrderReplicaSelector := client.ListOptions{}
+	externalOrderReplicaSelector.SetLabelSelector("app=scalog-order")
+	externalOrderReplicaSelector.InNamespace("scalog")
+	for {
+		err = r.client.List(context.Background(), &externalOrderReplicaSelector, &existingOrderReplicas)
+		if len(existingOrderReplicas.Items) >= 1 {
+			break
+		}
+		time.Sleep(2000 * time.Millisecond)
+	}
+
+	if err == nil {
+		// Create a order leader service if it does not exist
+		orderLeaderService := corev1.Service{}
+		if err := r.client.Get(context.Background(), types.NamespacedName{Namespace: "scalog", Name: "role=scalog-exposed-order-leader-service"}, &orderLeaderService); err != nil {
+			if errors.IsNotFound(err) {
+				reqLogger.Info("Order Leader service not found. Creating...")
+				service := newOrderLeaderService()
+				if osErr := r.client.Create(context.Background(), service); osErr != nil {
+					reqLogger.Info("Something went wrong while creating the order leader service")
+					return reconcile.Result{}, osErr
+				}
+				// Successfully created the order leader service. requeue to serve further requests
+				return reconcile.Result{Requeue: true}, nil
+			}
+			reqLogger.Info("Something went wrong while reading the order leader service")
+			return reconcile.Result{}, err
+		}
+	}
+
 	// Reconcile the number of data shards
 	existingDataShards := &appsv1.StatefulSetList{}
 	dataShardSelector := client.ListOptions{}
