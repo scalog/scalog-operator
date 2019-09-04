@@ -17,7 +17,7 @@ spec:
       containers:
         - name: scalog-operator
           # Replace this with the built image name
-          image: chengwanghku/scalog-operator:latest
+          image: scalog/scalog-operator:latest
           # imagePullPolicy: Never
           ports:
           - containerPort: 60000
