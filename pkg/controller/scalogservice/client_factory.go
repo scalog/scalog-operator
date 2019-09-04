@@ -35,7 +35,7 @@ func newClientDeployment() *appsv1.Deployment {
 					Containers: []corev1.Container{
 						corev1.Container{
 							Name:            "scalog-client-node",
-							Image:           "chengwanghku/scalog:latest",
+							Image:           "scalog/scalog:latest",
 							Command:         []string{"./scalog"},
 							Args:            []string{"k8sclient"},
 							ImagePullPolicy: "Always",

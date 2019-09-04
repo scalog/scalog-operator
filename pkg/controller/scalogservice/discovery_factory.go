@@ -67,7 +67,7 @@ func newDiscoveryDeployment(numReplicas int32) *appsv1.Deployment {
 					Containers: []corev1.Container{
 						corev1.Container{
 							Name:            "scalog-discovery-node",
-							Image:           "chengwanghku/scalog:latest",
+							Image:           "scalog/scalog:latest",
 							Command:         []string{"./scalog"},
 							Args:            []string{"k8sdiscovery"},
 							ImagePullPolicy: "Always",

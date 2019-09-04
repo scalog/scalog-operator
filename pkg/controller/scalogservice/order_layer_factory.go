@@ -41,7 +41,7 @@ func newOrderDeployment(numOrderReplicas int, numDataReplicas int, batchInterval
 					Containers: []corev1.Container{
 						corev1.Container{
 							Name:            "scalog-order-node",
-							Image:           "chengwanghku/scalog:latest",
+							Image:           "scalog/scalog:latest",
 							Command:         []string{"./scalog"},
 							Args:            []string{"k8sorder"},
 							ImagePullPolicy: "Always",
@@ -141,7 +141,7 @@ func newOrderStatefulSet(numOrderReplicas int, numDataReplicas int, batchInterva
 					Containers: []corev1.Container{
 						corev1.Container{
 							Name:            "scalog-order-node",
-							Image:           "chengwanghku/scalog:latest",
+							Image:           "scalog/scalog:latest",
 							Command:         []string{"./scalog"},
 							Args:            []string{"k8sorder"},
 							ImagePullPolicy: "Always",
