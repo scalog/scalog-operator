@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	scalogv1alpha1 "github.com/scalog-operator/pkg/apis/scalog/v1alpha1"
+	scalogv1alpha1 "github.com/scalog/scalog-operator/pkg/apis/scalog/v1alpha1"
 	"github.com/scalog/scalog/logger"
 	om "github.com/scalog/scalog/order/orderpb"
 	"google.golang.org/grpc"
@@ -315,7 +315,7 @@ func (r *ReconcileScalogService) Reconcile(request reconcile.Request) (reconcile
 		}
 		time.Sleep(2000 * time.Millisecond)
 	}
-	
+
 	if err == nil {
 		// Ensure that each data replica maintains its own service
 		externalDataService := &corev1.ServiceList{}

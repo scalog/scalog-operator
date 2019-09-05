@@ -11,9 +11,9 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogService":       schema_pkg_apis_scalog_v1alpha1_ScalogService(ref),
-		"github.com/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceSpec":   schema_pkg_apis_scalog_v1alpha1_ScalogServiceSpec(ref),
-		"github.com/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceStatus": schema_pkg_apis_scalog_v1alpha1_ScalogServiceStatus(ref),
+		"github.com/scalog/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogService":       schema_pkg_apis_scalog_v1alpha1_ScalogService(ref),
+		"github.com/scalog/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceSpec":   schema_pkg_apis_scalog_v1alpha1_ScalogServiceSpec(ref),
+		"github.com/scalog/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceStatus": schema_pkg_apis_scalog_v1alpha1_ScalogServiceStatus(ref),
 	}
 }
 
@@ -44,19 +44,19 @@ func schema_pkg_apis_scalog_v1alpha1_ScalogService(ref common.ReferenceCallback)
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceSpec"),
+							Ref: ref("github.com/scalog/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceStatus"),
+							Ref: ref("github.com/scalog/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceSpec", "github.com/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/scalog/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceSpec", "github.com/scalog/scalog-operator/pkg/apis/scalog/v1alpha1.ScalogServiceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 

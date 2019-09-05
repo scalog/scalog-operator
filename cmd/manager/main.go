@@ -11,8 +11,8 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"k8s.io/client-go/rest"
 
-	"github.com/scalog-operator/pkg/apis"
-	"github.com/scalog-operator/pkg/controller"
+	"github.com/scalog/scalog-operator/pkg/apis"
+	"github.com/scalog/scalog-operator/pkg/controller"
 
 	"github.com/operator-framework/operator-sdk/pkg/k8sutil"
 	kubemetrics "github.com/operator-framework/operator-sdk/pkg/kube-metrics"

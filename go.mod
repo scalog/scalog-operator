@@ -1,7 +1,6 @@
-module github.com/scalog-operator
+module github.com/scalog/scalog-operator
 
 require (
-	github.com/NYTimes/gziphandler v1.0.1 // indirect
 	github.com/operator-framework/operator-sdk v0.10.1-0.20190819165121-e09b9b06a705
 	github.com/scalog/scalog v0.0.0-20190731140123-fbc07824d317
 	github.com/spf13/pflag v1.0.3
@@ -28,3 +27,5 @@ replace (
 	sigs.k8s.io/controller-runtime => sigs.k8s.io/controller-runtime v0.1.12
 	sigs.k8s.io/controller-tools => sigs.k8s.io/controller-tools v0.1.11-0.20190411181648-9d55346c2bde
 )
+
+go 1.13

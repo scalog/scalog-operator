@@ -1,7 +1,7 @@
 package apis
 
 import (
-	"github.com/scalog-operator/pkg/apis/scalog/v1alpha1"
+	"github.com/scalog/scalog-operator/pkg/apis/scalog/v1alpha1"
 )
 
 func init() {

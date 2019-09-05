@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/scalog-operator/pkg/controller/scalogservice"
+	"github.com/scalog/scalog-operator/pkg/controller/scalogservice"
 )
 
 func init() {
