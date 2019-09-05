@@ -39,6 +39,8 @@ func newClientDeployment() *appsv1.Deployment {
 							Command:         []string{"./scalog"},
 							Args:            []string{"k8sclient"},
 							ImagePullPolicy: "Always",
+							Stdin:           true,
+							TTY:             true,
 							Ports: []corev1.ContainerPort{
 								corev1.ContainerPort{ContainerPort: 21024},
 							},
